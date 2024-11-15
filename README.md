@@ -104,7 +104,34 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 # Gamelib backend
 Gamelib backend is a backend for the gamelibrary project.
 
-1. Levantar la base de datos
+1. Clonar el proyecto
+```
+git clone https://github.com/Ahriman/game-library-backend.git
+cd game-library-backend
+```
+
+2. Instalar dependencias
+```
+pnpm install
+```
+
+3. Clonar el archivo ```.env.template``` y renombrarlo a ```.env```
+
+4. Editar el archivo ```.env``` y cambiar las variables de entorno
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=gamelib
+DB_USERNAME=postgres
+DB_PASSWORD=example
+```
+
+5. Levantar la base de datos
 ```
 docker compose up -d
+```
+
+6. Levantar la aplicación
+```
+pnpm start:dev
 ```
