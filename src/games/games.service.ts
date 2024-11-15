@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateGameDto } from './dto/create-game.dto';
@@ -35,16 +35,26 @@ export class GamesService {
     return this.gameRepository.find({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} game`;
+  async findOne(id: string) {
+
+    const game = await this.gameRepository.findOneBy({ id });
+
+    if (!game) {
+      throw new NotFoundException(`Game with id ${id} not found`);
+    }
+
+    return game;
   }
 
   update(id: number, updateGameDto: UpdateGameDto) {
     return `This action updates a #${id} game`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} game`;
+  async remove(id: string) {
+
+    const game = await this.findOne(id);
+
+    await this.gameRepository.delete(game.id);
   }
 
   private handleDBExceptions(error: any) {
@@ -54,7 +64,6 @@ export class GamesService {
     }
 
     this.logger.error(error);
-    // console.log(error);
     throw new InternalServerErrorException('Unexpected error, check server logs');
   }
 
