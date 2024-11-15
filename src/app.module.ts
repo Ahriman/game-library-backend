@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { GamesModule } from './games/games.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -25,6 +26,8 @@ import { GamesModule } from './games/games.module';
     UsersModule,
 
     GamesModule,
+
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [AppService],
