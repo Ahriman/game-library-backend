@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -19,6 +20,8 @@ import { AppService } from './app.service';
       autoLoadEntities: true,
       synchronize: true, // TODO: Cambiar a false para producción || automatizarlo con NODE_ENV
     }),
+
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
