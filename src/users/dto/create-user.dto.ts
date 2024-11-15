@@ -14,4 +14,5 @@ export class CreateUserDto {
     @IsOptional()
     @MinLength(3)
     fullname?: string;
+    
 }
