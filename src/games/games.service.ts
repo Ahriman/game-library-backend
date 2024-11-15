@@ -28,12 +28,11 @@ export class GamesService {
       this.handleDBExceptions(error);
     }
 
-
-    return 'This action adds a new game';
   }
 
+  // TODO: Paginar
   findAll() {
-    return `This action returns all games`;
+    return this.gameRepository.find({});
   }
 
   findOne(id: number) {
