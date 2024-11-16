@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { GamesModule } from './games/games.module';
 import { CommonModule } from './common/common.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -28,6 +29,8 @@ import { CommonModule } from './common/common.module';
     GamesModule,
 
     CommonModule,
+
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
