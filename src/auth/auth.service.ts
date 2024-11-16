@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
-import { RegisterDto } from './dto/register.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -9,8 +9,8 @@ export class AuthService {
     private readonly usersService: UsersService,
   ) {}
 
-  async register(registerDto: RegisterDto) {
-    return await this.usersService.create(registerDto);
+  async register(registerUserDto: RegisterUserDto) {
+    return await this.usersService.create(registerUserDto);
   }
 
   login() {

@@ -3,7 +3,7 @@ import { IsEmail, IsEnum, IsOptional, IsString, IsStrongPassword, Length } from 
 import { Status } from "src/users/enums/status.enum";
 
 
-export class RegisterDto {
+export class RegisterUserDto {
 
     @IsEmail()
     email: string;
