@@ -9,7 +9,7 @@ export class User {
 
     @Column({
         type: 'text',
-        unique: true
+        unique: true,
     })
     email: string;
 
@@ -20,7 +20,10 @@ export class User {
     })
     username?: string;
 
-    @Column({ type: 'text' })
+    @Column({
+        type: 'text',
+        select: false,
+    })
     password: string;
 
     @Column({ type: 'text', nullable: true })
@@ -38,7 +41,7 @@ export class User {
     @Column({
         type: 'enum',
         enum: Status, 
-        default: Status.ACTIVE
+        default: Status.ACTIVE,
     })
     status?: Status;
     
