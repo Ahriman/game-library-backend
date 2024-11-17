@@ -13,7 +13,6 @@ export class AuthController {
   registerUser(
     @Body() registerDto: RegisterUserDto,
   ) {
-    console.log(registerDto);
     return this.authService.register(registerDto);
   }
 
@@ -21,8 +20,7 @@ export class AuthController {
   loginUser(
     @Body() loginUserDto: LoginUserDto,
   ) {
-    console.log(loginUserDto);
-    return this.authService.login();
+    return this.authService.login(loginUserDto);
   }
 
 }
