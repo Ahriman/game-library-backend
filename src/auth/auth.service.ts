@@ -34,7 +34,7 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { email },
-      select: { email: true, password: true },
+      select: { id: true, email: true, password: true },
     });
 
     if (!user) {
@@ -45,9 +45,11 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
+    delete user.password;
+
     return {
       ...user,
-      token: this.getJwtToken({ email: user.email }),
+      token: this.getJwtToken({ id: user.id }),
     };
 
   }
