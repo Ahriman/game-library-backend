@@ -20,17 +20,17 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
 
     // TODO: Repasar estas comprobaciones para ver cual dejar finalmente
-    const userEmail = await this.findOneByEmail(createUserDto.email);
+    // const userEmail = await this.findOneByEmail(createUserDto.email);
 
-    if (userEmail) {
-      throw new BadRequestException('Email already exists');
-    }
+    // if (userEmail) {
+    //   throw new BadRequestException('Email already exists');
+    // }
 
-    const username = await this.findOneByUsername(createUserDto.username);
+    // const username = await this.findOneByUsername(createUserDto.username);
 
-    if (username) {
-      throw new BadRequestException('Username already exists');
-    }
+    // if (username) {
+    //   throw new BadRequestException('Username already exists');
+    // }
     // TODO: Fin
 
     try {
@@ -59,21 +59,21 @@ export class UsersService {
     return this.userRepository.findOne({ where: { username } });
   }
 
-  // findAll() {
-  //   return `This action returns all users`;
-  // }
+  findAll() {
+    return `This action returns all users`;
+  }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} user`;
-  // }
+  findOne(id: number) {
+    return `This action returns a #${id} user`;
+  }
 
-  // update(id: number, updateUserDto: UpdateUserDto) {
-  //   return `This action updates a #${id} user`;
-  // }
+  update(id: number, updateUserDto: UpdateUserDto) {
+    return `This action updates a #${id} user`;
+  }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} user`;
-  // }
+  remove(id: number) {
+    return `This action removes a #${id} user`;
+  }
 
   private handleDBExceptions(error: any): never {
 

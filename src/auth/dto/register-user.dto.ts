@@ -5,6 +5,7 @@ import { Status } from "src/users/enums/status.enum";
 
 export class RegisterUserDto {
 
+    @Transform(({ value }) => value.toLowerCase())
     @IsEmail()
     email: string;
 

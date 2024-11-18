@@ -1,12 +1,13 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
 import { Status } from "../enums/status.enum";
+import { Transform } from "class-transformer";
 
 @Entity('users')
 export class User {
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
-
+    
     @Column({
         type: 'text',
         unique: true,
@@ -44,5 +45,16 @@ export class User {
         default: Status.ACTIVE,
     })
     status?: Status;
+    static STATUS: any;
+
+    // @BeforeInsert()
+    // checkFieldsBeforeInsert() {
+    //     this.email = this.email.toLowerCase();
+    // }
+    
+    // @BeforeUpdate()
+    // checkFieldsBeforeUpdate() {
+    //     this.checkFieldsBeforeInsert();
+    // }
     
 }
