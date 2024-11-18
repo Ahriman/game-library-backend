@@ -21,7 +21,16 @@ async function bootstrap() {
     .setTitle('Gamelib RESTFul API')
     .setDescription('Gamelib endpoints')
     .setVersion('1.0')
+    .addBearerAuth( // Este método define el esquema Bearer
+      {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT', // Opcional: describe el formato del token
+      },
+      'access-token', // Nombre de referencia para el esquema
+    )
     .build();
+    
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('', app, documentFactory);
 

@@ -1,6 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto, LoginUserDto } from './dto';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -21,6 +23,13 @@ export class AuthController {
     @Body() loginUserDto: LoginUserDto,
   ) {
     return this.authService.login(loginUserDto);
+  }
+
+  @Get('private')
+  @ApiBearerAuth('access-token')
+  @UseGuards(AuthGuard())
+  testingPrivateRoute() {
+    return 'This is a private route';
   }
 
 }
