@@ -18,7 +18,18 @@ export class GamesService {
     @InjectRepository(Game)
     private readonly gameRepository: Repository<Game>,
   ) {}
+  
+  async findOrCreate(gameData: Partial<Game>): Promise<Game> {
+    let game = await this.gameRepository.findOne({ where: { name: gameData.name } });
 
+    if (!game) {
+      game = this.gameRepository.create(gameData);
+      return this.gameRepository.save(game);
+    }
+
+    return game;
+  }
+  
   async create(createGameDto: CreateGameDto) {
 
     try {

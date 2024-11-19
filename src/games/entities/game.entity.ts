@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity('games')
-@Unique(['title', 'steamAppId'])
+@Unique(['name', 'steamAppId'])
 export class Game {
 
     @PrimaryGeneratedColumn('uuid')
@@ -15,7 +15,7 @@ export class Game {
     @Column('text', {
         // unique: true
     })
-    title: string;
+    name: string;
 
     @ApiProperty({
         description: 'URL de la portada del juego',

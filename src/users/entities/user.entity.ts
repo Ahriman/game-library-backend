@@ -1,4 +1,4 @@
-import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
 import { Status } from "../enums/status.enum";
 import { Transform } from "class-transformer";
 
@@ -45,6 +45,9 @@ export class User {
         default: Status.ACTIVE,
     })
     status?: Status;
+
+    // @OneToMany(() => UserGame, userGame => userGame.user)
+    // userGames: UserGame[];
 
     // @BeforeInsert()
     // checkFieldsBeforeInsert() {

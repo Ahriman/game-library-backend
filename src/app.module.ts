@@ -9,6 +9,7 @@ import { GamesModule } from './games/games.module';
 import { CommonModule } from './common/common.module';
 import { AuthModule } from './auth/auth.module';
 import { SteamModule } from './steam/steam.module';
+import { UserGamesModule } from './user-games/user-games.module';
 
 @Module({
   imports: [
@@ -35,6 +36,8 @@ import { SteamModule } from './steam/steam.module';
     AuthModule,
 
     SteamModule,
+
+    UserGamesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
