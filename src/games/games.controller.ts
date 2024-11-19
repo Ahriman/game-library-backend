@@ -4,16 +4,20 @@ import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody } from '@nestjs/swagger';
+import { Game } from './entities/game.entity';
 
 // @ApiTags('Games')
 @Controller('games')
 export class GamesController {
+
   constructor(private readonly gamesService: GamesService) {}
 
   @Post()
   @ApiOperation({ summary: 'Crear un nuevo juego' })
   @ApiConsumes('application/json')
   @ApiProduces('application/json')
+  @ApiBody({ type: CreateGameDto })
   @ApiResponse({ status: 201, description: 'El juego ha sido creado.' })
   @ApiResponse({ status: 400, description: 'Datos inválidos.' })
   create(@Body() createGameDto: CreateGameDto) {
@@ -21,10 +25,10 @@ export class GamesController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Obtener una lista de juegos' })
-  @ApiQuery({ name: 'page', required: false, description: 'Número de página' })
-  @ApiQuery({ name: 'limit', required: false, description: 'Límite de resultados por página' })
-  @ApiResponse({ status: 200, description: 'Lista de juegos.' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Cantidad de resultados a devolver', example: 10 })
+  @ApiQuery({ name: 'offset', required: false, type: Number, description: 'Número de resultados a saltar', example: 0 })
+  @ApiResponse({ status: 200, description: 'Lista de juegos obtenida con éxito.', type: [Game] }) // Reemplaza `Game` con el modelo apropiado
+  @ApiResponse({ status: 400, description: 'Consulta inválida.' })
   findAll(@Query() paginationDto: PaginationDto) {
     return this.gamesService.findAll(paginationDto);
   }
@@ -38,7 +42,7 @@ export class GamesController {
     type: 'string',
     format: 'uuid',
   })
-  @ApiResponse({ status: 200, description: 'Detalles del juego.' })
+  @ApiResponse({ status: 200, description: 'Juego obtenido con éxito.' })
   @ApiResponse({ status: 404, description: 'Juego no encontrado.' })
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.gamesService.findOne(id);
@@ -55,7 +59,9 @@ export class GamesController {
   })
   @ApiConsumes('application/json')
   @ApiProduces('application/json')
-  @ApiResponse({ status: 200, description: 'El juego ha sido actualizado.' })
+  @ApiBody({ type: UpdateGameDto })
+  @ApiResponse({ status: 200, description: 'Juego actualizado con éxito.' })
+  @ApiResponse({ status: 400, description: 'Datos inválidos.' })
   @ApiResponse({ status: 404, description: 'Juego no encontrado.' })
   update(@Param('id') id: string, @Body() updateGameDto: UpdateGameDto) {
     return this.gamesService.update(+id, updateGameDto);
@@ -70,7 +76,7 @@ export class GamesController {
     type: 'string',
     format: 'uuid',
   })
-  @ApiResponse({ status: 200, description: 'El juego ha sido eliminado.' })
+  @ApiResponse({ status: 200, description: 'Juego eliminado con éxito.' })
   @ApiResponse({ status: 404, description: 'Juego no encontrado.' })
   remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.gamesService.remove(id);

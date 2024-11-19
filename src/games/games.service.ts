@@ -1,12 +1,13 @@
 import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { getManager, Repository } from 'typeorm';
 
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 import { Game } from './entities/game.entity';
+import { SteamGame } from 'src/steam/interfaces/steam.game';
 
 @Injectable()
 export class GamesService {
@@ -32,6 +33,60 @@ export class GamesService {
     }
 
   }
+
+  // async createBulk(games: Partial<Game>[]) {
+  //   // return this.gameRepository.save(games);
+  //   const manager = getManager();
+  //   await manager.query(`
+  //     INSERT INTO game (title, cover, description)
+  //     VALUES ${games.map(game => `('${game.title}', '${game.cover}', '${game.description || ''}')`).join(', ')}
+  //     ON CONFLICT (title) DO NOTHING
+  //   `);
+  // }
+
+  // async createBulk(games: Partial<Game>[]): Promise<void> {
+  //   try {
+  //     await this.gameRepository.save(games, { chunk: 100 });
+  //   } catch (error) {
+  //     // Maneja errores aquí
+  //     console.error('Error guardando juegos:', error);
+  //   }
+  // }
+
+  async createBulk(games: Partial<Game>[]): Promise<void> {
+    try {
+      await this.gameRepository.save(games, { chunk: 100 }); // Inserta en bloques de 100
+    } catch (error) {
+      this.handleDBExceptions(error);
+    }
+  }
+
+  // async createBulk(steamGames: SteamGame[]): Promise<void> {
+  //   try {
+  //     // Mapear SteamGame a Game
+  //     const gamesToSave: Partial<Game>[] = steamGames.map(sg => ({
+  //       title: sg.name,
+  //       cover: `https://steamcdn-a.akamaihd.net/steam/apps/${sg.appid}/header.jpg`,
+  //       description: '', // Aquí puedes incluir lógica específica para "description"
+  //     }));
+
+  //     // Filtrar juegos con títulos únicos
+  //     const seenTitles = new Set();
+  //     const uniqueGames = gamesToSave.filter(game => {
+  //       if (seenTitles.has(game.title)) {
+  //         return false;
+  //       }
+  //       seenTitles.add(game.title);
+  //       return true;
+  //     });
+
+  //     // Guarda los juegos en la base de datos
+  //     await this.gameRepository.save(uniqueGames, { chunk: 100 });
+  //   } catch (error) {
+  //     // Maneja errores aquí
+  //     this.handleDBExceptions(error);
+  //   }
+  // }
 
   findAll(paginationDto: PaginationDto) {
 

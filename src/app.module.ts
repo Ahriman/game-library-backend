@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { GamesModule } from './games/games.module';
 import { CommonModule } from './common/common.module';
 import { AuthModule } from './auth/auth.module';
+import { SteamModule } from './steam/steam.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
       database: process.env.DB_NAME,
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: true, // TODO: Cambiar a false para producción || automatizarlo con NODE_ENV
     }),
@@ -31,6 +33,8 @@ import { AuthModule } from './auth/auth.module';
     CommonModule,
 
     AuthModule,
+
+    SteamModule,
   ],
   controllers: [AppController],
   providers: [AppService],

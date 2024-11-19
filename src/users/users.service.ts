@@ -84,5 +84,5 @@ export class UsersService {
     this.logger.error(error);
     throw new InternalServerErrorException('Unexpected error, check server logs');
   }
-  
+
 }

@@ -4,22 +4,22 @@ import { IsOptional, IsString } from "class-validator";
 export class CreateGameDto {
 
     @ApiProperty({
-        example: 'The Legend of Zelda: Breath of the Wild',
         description: 'Título del juego',
+        example: 'The Legend of Zelda: Breath of the Wild',
     })
     @IsString()
     title: string;
 
     @ApiProperty({
-        example: 'https://example.com/covers/zelda.jpg',
         description: 'URL de la portada del juego',
+        example: 'https://example.com/covers/zelda.jpg',
     })
     @IsString()
     cover: string;
 
     @ApiPropertyOptional({
-        example: 'Un juego de acción y aventura en un mundo abierto.',
-        description: 'Descripción del juego (opcional)',
+        description: 'Descripción del juego',
+        example: 'Un juego de aventuras en mundo abierto desarrollado por Nintendo.',
     })
     @IsString()
     @IsOptional()

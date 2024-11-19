@@ -12,5 +12,6 @@ import { Game } from './entities/game.entity';
       Game
     ]),
   ],
+  exports: [GamesService],
 })
 export class GamesModule {}
