@@ -3,8 +3,9 @@ import { GamesService } from './games.service';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
-import { ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse } from '@nestjs/swagger';
+import { ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+// @ApiTags('Games')
 @Controller('games')
 export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
@@ -21,6 +22,8 @@ export class GamesController {
 
   @Get()
   @ApiOperation({ summary: 'Obtener una lista de juegos' })
+  @ApiQuery({ name: 'page', required: false, description: 'Número de página' })
+  @ApiQuery({ name: 'limit', required: false, description: 'Límite de resultados por página' })
   @ApiResponse({ status: 200, description: 'Lista de juegos.' })
   findAll(@Query() paginationDto: PaginationDto) {
     return this.gamesService.findAll(paginationDto);
@@ -35,6 +38,8 @@ export class GamesController {
     type: 'string',
     format: 'uuid',
   })
+  @ApiResponse({ status: 200, description: 'Detalles del juego.' })
+  @ApiResponse({ status: 404, description: 'Juego no encontrado.' })
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.gamesService.findOne(id);
   }
@@ -48,6 +53,8 @@ export class GamesController {
     type: 'string',
     format: 'uuid',
   })
+  @ApiConsumes('application/json')
+  @ApiProduces('application/json')
   @ApiResponse({ status: 200, description: 'El juego ha sido actualizado.' })
   @ApiResponse({ status: 404, description: 'Juego no encontrado.' })
   update(@Param('id') id: string, @Body() updateGameDto: UpdateGameDto) {
