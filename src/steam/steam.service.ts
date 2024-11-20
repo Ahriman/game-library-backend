@@ -1,20 +1,27 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { SteamGame } from './interfaces/steam.game';
 import { GamesService } from 'src/games/games.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class SteamService {
 
   private readonly logger = new Logger('SteamService');
-  private readonly apiKey = 'C41502D29F9EFE71E503452074E2BB6A'; // Tu clave API de Steam // TODO: UTILIZAR UNA VARIABLE DE ENTORNO
+  private readonly steamApiKey: string;
+  // private readonly apiKey = 'C41502D29F9EFE71E503452074E2BB6A'; // Tu clave API de Steam // TODO: UTILIZAR UNA VARIABLE DE ENTORNO
 
-  constructor(private readonly gamesService: GamesService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly gamesService: GamesService,
+  ) {
+    this.steamApiKey = this.configService.get<string>('STEAM_API_KEY');
+  }
 
   // Función para obtener el SteamID desde el vanityUrl
   async getSteamIdFromSteamUsername(steamUsername: string): Promise<SteamGame[]> {
     const url = `https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/`;
     const params = new URLSearchParams({
-      key: this.apiKey,
+      key: this.steamApiKey,
       vanityurl: steamUsername,
     });
 
@@ -44,7 +51,7 @@ export class SteamService {
   async getOwnedGames(steamId: string): Promise<any[]> {
     const url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/';
     const params = new URLSearchParams({
-      key: this.apiKey,
+      key: this.steamApiKey,
       steamid: steamId,
       include_appinfo: '1', // Incluir información adicional sobre los juegos (nombre, etc.)
       include_played_free_games: '1', // Incluir juegos gratuitos jugados
