@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { GamePlatform } from "src/game-platforms/entities/game-platform.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity('games')
 @Unique(['name', 'steamAppId'])
@@ -9,7 +10,7 @@ export class Game {
     id: string;
 
     @ApiProperty({
-        description: 'Título del juego',
+        description: 'Nombre del juego',
         example: 'The Witcher 3: Wild Hunt',
     })
     @Column('text', {
@@ -22,9 +23,10 @@ export class Game {
         example: 'https://example.com/covers/witcher3.jpg',
     })
     @Column({
-        type: 'text'
+        type: 'text',
+        nullable: true,
     })
-    cover: string;
+    cover?: string;
 
     @Column({
         type: 'text',
@@ -37,12 +39,18 @@ export class Game {
     })
     description?: string;
 
-    @Column('int')
+    @Column({
+        type: 'int',
+        nullable: true,
+    })
     @ApiProperty({
         description: 'Identificador de la aplicación en Steam',
         example: 292030,
         required: false,
     })
     steamAppId?: number;
+
+    @OneToMany(() => GamePlatform, gamePlatform => gamePlatform.game)
+    gamePlatforms: GamePlatform[];
 
 }

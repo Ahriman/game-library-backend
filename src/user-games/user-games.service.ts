@@ -52,7 +52,7 @@ export class UserGamesService {
 
     // Verificar si ya existe la relación usuario-juego
     const existingRelation = await this.userGameRepository.findOne({
-      where: { user, game },
+      where: { userId: user.id, gameId: game.id },
     });
 
     if (existingRelation) {
@@ -60,7 +60,7 @@ export class UserGamesService {
     }
 
     // Crear la relación usuario-juego
-    const userGame = this.userGameRepository.create({ user, game });
+    const userGame = this.userGameRepository.create({ userId: user.id, gameId: game.id });
     return this.userGameRepository.save(userGame);
   }
   

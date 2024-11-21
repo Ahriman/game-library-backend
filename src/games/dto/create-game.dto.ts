@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsOptional, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class CreateGameDto {
 
@@ -8,14 +8,16 @@ export class CreateGameDto {
         example: 'The Legend of Zelda: Breath of the Wild',
     })
     @IsString()
-    title: string;
+    @IsNotEmpty()
+    name: string;
 
     @ApiProperty({
         description: 'URL de la portada del juego',
         example: 'https://example.com/covers/zelda.jpg',
     })
     @IsString()
-    cover: string;
+    @IsOptional()
+    cover?: string;
 
     @ApiPropertyOptional({
         description: 'Descripción del juego',

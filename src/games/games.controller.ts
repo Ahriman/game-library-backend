@@ -7,7 +7,7 @@ import { ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiQuery, ApiResponse
 import { ApiBody } from '@nestjs/swagger';
 import { Game } from './entities/game.entity';
 
-// @ApiTags('Games')
+@ApiTags('Games')
 @Controller('games')
 export class GamesController {
 
@@ -31,6 +31,15 @@ export class GamesController {
   @ApiResponse({ status: 400, description: 'Consulta inválida.' })
   findAll(@Query() paginationDto: PaginationDto) {
     return this.gamesService.findAll(paginationDto);
+  }
+
+  @Get('search')
+  @ApiOperation({ summary: 'Buscar juegos por nombre' })
+  @ApiQuery({ name: 'search', required: true, type: String, description: 'Término de búsqueda' })
+  @ApiResponse({ status: 200, description: 'Lista de juegos obtenida con éxito.', type: [Game] })
+  @ApiResponse({ status: 400, description: 'Consulta inválida.' })
+  async search(@Query('search') search: string): Promise<Game[]> {
+    return this.gamesService.searchByName(search);
   }
 
   @Get(':id')

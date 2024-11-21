@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Game } from "src/games/entities/game.entity";
 import { User } from "src/users/entities/user.entity";
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('user_games')
 export class UserGame {
@@ -13,19 +13,25 @@ export class UserGame {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @ApiProperty({
-        description: 'The user associated with this UserGame entity.',
-        type: () => User
-    })
-    @ManyToOne(() => User) // , user => user.userGames
-    user: User;
+    // @ApiProperty({
+    //     description: 'The user associated with this UserGame entity.',
+    //     type: () => User
+    // })
+    // // @ManyToOne(() => User) // , user => user.userGames
+    // user: User;
 
-    @ApiProperty({
-        description: 'The game associated with this UserGame entity.',
-        type: () => Game
-    })
-    @ManyToOne(() => Game) // , game => game.userGames
-    game: Game;
+    // @ApiProperty({
+    //     description: 'The game associated with this UserGame entity.',
+    //     type: () => Game
+    // })
+    // @ManyToOne(() => Game) // , game => game.userGames
+    // game: Game;
+
+    @Column()
+    userId: string;
+
+    @Column()
+    gameId: string;
 
     // @ApiProperty({
     //     description: 'The score of the user in the game.',

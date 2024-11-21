@@ -10,6 +10,8 @@ import { CommonModule } from './common/common.module';
 import { AuthModule } from './auth/auth.module';
 import { SteamModule } from './steam/steam.module';
 import { UserGamesModule } from './user-games/user-games.module';
+import { PlatformsModule } from './platforms/platforms.module';
+import { GamePlatformsModule } from './game-platforms/game-platforms.module';
 
 @Module({
   imports: [
@@ -38,6 +40,10 @@ import { UserGamesModule } from './user-games/user-games.module';
     SteamModule,
 
     UserGamesModule,
+
+    PlatformsModule,
+
+    GamePlatformsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

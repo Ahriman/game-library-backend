@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getManager, Repository } from 'typeorm';
+import { getManager, ILike, Like, Repository } from 'typeorm';
 
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
@@ -119,6 +119,12 @@ export class GamesService {
     }
 
     return game;
+  }
+
+  async searchByName(name: string): Promise<Game[]> {
+    return this.gameRepository.find({
+      where: { name: ILike(`%${name}%`) },
+    });
   }
 
   update(id: number, updateGameDto: UpdateGameDto) {
