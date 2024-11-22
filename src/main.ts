@@ -8,6 +8,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('Main');
 
+  // Configurar CORS
+  app.enableCors({
+    origin: 'http://localhost:4321', // Permitir solo este origen
+    methods: 'GET,HEAD,POST,PUT,DELETE,PATCH', // Métodos permitidos
+    credentials: true, // Para cookies, autorización, etc.
+  });
+
   // Configuración global de pipes
   app.useGlobalPipes(
     new ValidationPipe({
