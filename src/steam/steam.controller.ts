@@ -5,7 +5,7 @@ import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SteamGame } from './interfaces/steam.game';
 import { Steam } from './entities/steam.entity';
 
-@ApiTags('steam')
+@ApiTags('Steam')
 @Controller('steam')
 export class SteamController {
 

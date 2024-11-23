@@ -5,7 +5,7 @@ import { UpdateUserGameDto } from './dto/update-user-game.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserGame } from './entities/user-game.entity';
 
-@ApiTags('user-games')
+@ApiTags('UserGames')
 @Controller('user-games')
 export class UserGamesController {
   constructor(private readonly userGamesService: UserGamesService) {}

@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { GamePlatform } from "src/game-platforms/entities/game-platform.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('platforms')
 export class Platform {
 
     @ApiProperty({

@@ -5,7 +5,7 @@ import { UpdatePlatformDto } from './dto/update-platform.dto';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Platform } from './entities/platform.entity';
 
-@ApiTags('platforms')
+@ApiTags('Platforms')
 @Controller('platforms')
 export class PlatformsController {
   constructor(private readonly platformsService: PlatformsService) {}

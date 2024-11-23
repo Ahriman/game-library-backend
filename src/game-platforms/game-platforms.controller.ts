@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { GamePlatformsService } from './game-platforms.service';
 import { CreateGamePlatformDto } from './dto/create-game-platform.dto';
 import { UpdateGamePlatformDto } from './dto/update-game-platform.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('GamePlatfroms')
 @Controller('game-platforms')
 export class GamePlatformsController {
   constructor(private readonly gamePlatformsService: GamePlatformsService) {}

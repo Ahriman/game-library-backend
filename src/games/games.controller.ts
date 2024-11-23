@@ -25,6 +25,7 @@ export class GamesController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Obtener todos los juegos' })
   @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Cantidad de resultados a devolver', example: 10 })
   @ApiQuery({ name: 'offset', required: false, type: Number, description: 'Número de resultados a saltar', example: 0 })
   @ApiResponse({ status: 200, description: 'Lista de juegos obtenida con éxito.', type: [Game] }) // Reemplaza `Game` con el modelo apropiado
