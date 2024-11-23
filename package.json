@@ -39,13 +39,13 @@
     "typeorm": "0.3.20"
   },
   "devDependencies": {
-    "@nestjs/cli": "10.4.7",
+    "@nestjs/cli": "10.4.8",
     "@nestjs/schematics": "10.2.3",
     "@nestjs/testing": "10.4.8",
     "@types/bcrypt": "5.0.2",
     "@types/express": "5.0.0",
     "@types/jest": "29.5.14",
-    "@types/node": "22.9.1",
+    "@types/node": "22.9.3",
     "@types/passport-jwt": "4.0.1",
     "@types/supertest": "6.0.2",
     "@typescript-eslint/eslint-plugin": "8.15.0",
@@ -61,7 +61,7 @@
     "ts-loader": "9.5.1",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
-    "typescript": "5.6.3"
+    "typescript": "5.7.2"
   },
   "jest": {
     "moduleFileExtensions": [
