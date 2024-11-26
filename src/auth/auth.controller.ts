@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto, LoginUserDto } from './dto';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { UserRoleGuard } from './guards/user-role.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -32,10 +33,23 @@ export class AuthController {
     return this.authService.login(loginUserDto);
   }
 
+  @Post('verify')
+  @ApiBearerAuth('access-token')
+  @UseGuards( AuthGuard(), UserRoleGuard )
+  @ApiOperation({ summary: 'Verificar token JWT' })
+  @ApiResponse({ status: 200, description: 'Token válido.' })
+  @ApiResponse({ status: 401, description: 'Token inválido.' })
+  // verifyToken(@Request() req: Request) {
+  //   return { valid: true, user: req.user };
+  // }
+  verifyToken(@Request() req: Request) {
+    return { valid: true };
+  }
+
   @Get('private')
   @ApiBearerAuth('access-token')
   // @UseGuards(JwtAuthGuard)
-  @UseGuards(AuthGuard())
+  @UseGuards( AuthGuard(), UserRoleGuard )
   @ApiOperation({ summary: 'Endpoint privado' })
   @ApiResponse({ status: 200, description: 'Acceso autorizado.' })
   @ApiResponse({ status: 401, description: 'No autorizado.' })
