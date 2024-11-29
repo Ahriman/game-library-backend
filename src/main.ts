@@ -10,7 +10,7 @@ async function bootstrap() {
 
   // Configurar CORS
   app.enableCors({
-    origin: 'http://localhost:4321', // Permitir solo este origen
+    origin: [process.env.FRONTEND_URL], // Permitir solo este origen
     methods: 'GET,HEAD,POST,PUT,DELETE,PATCH', // Métodos permitidos
     credentials: true, // Para cookies, autorización, etc.
   });
